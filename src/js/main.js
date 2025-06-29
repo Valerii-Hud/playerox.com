@@ -6,7 +6,7 @@ import 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js';
 
 import '/src/sass/style.scss';
 import { GAMES, SECTIONS } from '/src/js/constancts';
-
+import { HOME } from '/src/js/pages';
 document.addEventListener('DOMContentLoaded', () => {
   function createCatalog(arr) {
     const catalogParent = document.querySelector('.catalog__wrapper');
@@ -18,8 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
       catalogParent.append(catalogItem);
     });
   }
-
   function pageScrollConfiguration(id, sections) {
+    const el = document.querySelector(id);
+    if (!el) {
+      console.error(`Element ${id} not found in DOM`);
+      return;
+    }
+
     new fullpage(id, {
       anchors: sections,
       licenseKey: 'GPLv3',
@@ -34,15 +39,31 @@ document.addEventListener('DOMContentLoaded', () => {
       credits: { enabled: false },
     });
   }
-  pageScrollConfiguration('#fullpage', SECTIONS);
-  createCatalog(GAMES);
-  $(document).ready(function () {
-    $('.reviews__wrapper').slick({
-      autoplay: true,
-      autoplaySpeed: 2000,
-      arrows: false,
-      slidesToShow: 3,
-      slidesToScroll: 1,
+  function createPage(page) {
+    document.body.insertAdjacentHTML('beforeend', page.trim());
+  }
+
+  function main() {
+    createPage(HOME);
+    createCatalog(GAMES);
+
+    requestAnimationFrame(() => {
+      const el = document.querySelector('#fullpage');
+      if (!el) {
+        console.error('Element #fullpage not found in DOM');
+        return;
+      }
+      pageScrollConfiguration('#fullpage', SECTIONS);
     });
-  });
+    $(document).ready(function () {
+      $('.reviews__wrapper').slick({
+        autoplay: true,
+        autoplaySpeed: 2000,
+        arrows: false,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      });
+    });
+  }
+  main();
 });

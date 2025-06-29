@@ -7,4 +7,4 @@ export const GAMES = [
   "Baldur's Gate 3",
 ];
 
-export const SECTIONS = ['hero', 'catalog', 'cta', 'reviews'];
+export const SECTIONS = ['hero', 'catalog', 'cta', 'reviews', 'info'];

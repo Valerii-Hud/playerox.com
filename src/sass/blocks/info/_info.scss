@@ -1,0 +1,20 @@
+.info {
+  background-color: #000;
+  height: 100vh;
+  &__wrapper {
+    display: flex;
+    color: #fff;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+  }
+  &__descr {
+    font-size: 36px;
+    text-align: center;
+  }
+  &__data {
+    text-align: center;
+    font-size: 120px;
+    font-weight: 800;
+  }
+}
